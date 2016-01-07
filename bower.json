@@ -1,0 +1,21 @@
+{
+  "name": "angular-currency-formatter",
+  "description": "A directive to format currency values after typing while parsing the unformatted number to the model",
+  "main": "index.js",
+  "authors": [
+    "Jafari Sitakange"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/sitajaf/ng-currency-formatter",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.8"
+  }
+}
