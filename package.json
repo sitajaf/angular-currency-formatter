@@ -1,0 +1,26 @@
+{
+  "name": "ng-currency-formatter",
+  "version": "1.0.0",
+  "description": "A directive to format currency values after typing while parsing the unformatted number to the model",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/karma/bin/karma start karma.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/sitajaf/ng-currency-formatter.git"
+  },
+  "author": "Jafari Sitakange",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sitajaf/ng-currency-formatter/issues"
+  },
+  "homepage": "https://github.com/sitajaf/ng-currency-formatter#readme",
+  "devDependencies": {
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.19",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-phantomjs-launcher": "^0.2.3",
+    "karma-jasmine": "^0.3.6"
+  }
+}
