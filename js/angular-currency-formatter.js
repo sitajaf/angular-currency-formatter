@@ -1,5 +1,13 @@
 angular.module('ngCurrencyFormatterApp', [])
+    .controller('currencyController', ['$scope', function ($scope) {
+        $scope. value = 24400;
+    }])
     .directive('ngCurrencyFormatter', ['$filter', function ($filter) {
+        return {
+            link: link,
+            require: 'ngModel'
+        };
+
         function link(scope, element, attrs, controller) {
             controller.$formatters.push(function (value) {
                 return $filter('currency')(value, '', 0);
@@ -9,7 +17,7 @@ angular.module('ngCurrencyFormatterApp', [])
                 element.val(toNumber(element.val()));
             });
 
-            element.on('blur', function (event){
+            element.on('blur', function (event) {
                 var formattedValue = $filter('currency')(element.val(), '', 0);
                 controller.$setViewValue(formattedValue);
                 controller.$render();
@@ -20,9 +28,5 @@ angular.module('ngCurrencyFormatterApp', [])
             }
         }
 
-        return {
-            link: link,
-            require: 'ngModel'
-        }
     }
     ]);

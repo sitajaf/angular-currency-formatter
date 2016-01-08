@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ngCurrencyFormatterApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="js/angular-currency-formatter.js"></script>
+</head>
+<body ng-controller="currencyController">
+<h2>Ng-currency-formatter example</h2>
+
+<div>
+    <div>
+        <span>Model value: {{value}}</span>
+    </div>
+    <div>
+        <input type="tel" ng-model="value" ng-currency-formatter>
+    </div>
+</div>
+</body>
+</html>
