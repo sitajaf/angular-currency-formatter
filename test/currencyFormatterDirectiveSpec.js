@@ -39,4 +39,19 @@ describe('ng-currency-formatter directive', function(){
 
     });
 
+    it('should reformat the view value with commas if focus is lost', function(){
+        scope.currencyValue = 24504000;
+        scope.$apply();
+
+        var input = angular.element(element);
+
+        input.triggerHandler('focus');
+        expect(input.val()).toEqual('24504000');
+
+        input.triggerHandler('blur');
+        expect(input.val()).toEqual('24,504,000');
+        expect(scope.currencyValue).toEqual(24504000);
+
+    });
+
 });
