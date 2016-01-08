@@ -28,4 +28,15 @@ describe('ng-currency-formatter directive', function(){
         expect(scope.currencyValue).toEqual(23000);
     });
 
+    it('should set the view value to number upon gaining focus', function(){
+        scope.currencyValue =1329219;
+        scope.$apply();
+
+        var input = angular.element(element);
+        input.triggerHandler('focus');
+
+        expect(input.val()).toEqual('1329219');
+
+    });
+
 });
