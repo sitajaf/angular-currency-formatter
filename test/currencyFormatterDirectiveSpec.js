@@ -24,6 +24,7 @@ describe('ng-currency-formatter directive', function () {
         scope.$apply();
 
         expect(input.val()).toBe('23,000');
+expect(scope.currencyForm.currencyInput.$viewValue).toEqual('23,000');
         expect(scope.currencyValue).toEqual(23000);
     });
 
@@ -56,6 +57,5 @@ describe('ng-currency-formatter directive', function () {
         expect(scope.currencyForm.currencyInput.$modelValue).toEqual(35400340);
 
     });
-
-
+    
 });

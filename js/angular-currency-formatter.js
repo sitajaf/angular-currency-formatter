@@ -4,6 +4,7 @@ angular.module('ngCurrencyFormatterApp', [])
     }])
     .directive('ngCurrencyFormatter', ['$filter', function ($filter) {
         return {
+            restrict: 'A',
             link: link,
             require: 'ngModel',
             scope: {
