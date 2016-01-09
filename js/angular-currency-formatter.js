@@ -5,7 +5,10 @@ angular.module('ngCurrencyFormatterApp', [])
     .directive('ngCurrencyFormatter', ['$filter', function ($filter) {
         return {
             link: link,
-            require: 'ngModel'
+            require: 'ngModel',
+            scope: {
+                value: '='
+            }
         };
 
         function link(scope, element, attrs, controller) {
@@ -21,6 +24,10 @@ angular.module('ngCurrencyFormatterApp', [])
                 var formattedValue = $filter('currency')(element.val(), '', 0);
                 controller.$setViewValue(formattedValue);
                 controller.$render();
+            });
+
+            controller.$parsers.push(function(value){
+                return toNumber(value);
             });
 
             function toNumber(value) {
