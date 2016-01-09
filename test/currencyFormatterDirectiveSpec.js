@@ -1,7 +1,8 @@
 describe('ng-currency-formatter directive', function () {
     var scope,
         compile,
-        element;
+        element,
+        input;
 
     beforeEach(function () {
         module('ngCurrencyFormatterApp');
@@ -14,13 +15,13 @@ describe('ng-currency-formatter directive', function () {
         var html = '<form name="currencyForm" ><input name="currencyInput" ng-currency-formatter ng-model="currencyValue"></form>';
         element = compile(html)(scope);
         scope.$digest();
+
+        input = angular.element(element).find('input');
     });
 
     it('should display a view value with commas while maintaining the model value as number', function () {
         scope.currencyValue = 23000;
         scope.$apply();
-
-        var input = angular.element(element).find('input');
 
         expect(input.val()).toBe('23,000');
         expect(scope.currencyValue).toEqual(23000);
@@ -30,7 +31,6 @@ describe('ng-currency-formatter directive', function () {
         scope.currencyValue = 1329219;
         scope.$apply();
 
-        var input = angular.element(element).find('input');
         input.triggerHandler('focus');
 
         expect(input.val()).toEqual('1329219');
@@ -41,8 +41,6 @@ describe('ng-currency-formatter directive', function () {
         scope.currencyValue = 24504000;
         scope.$apply();
 
-        var input = angular.element(element).find('input');
-
         input.triggerHandler('focus');
         expect(input.val()).toEqual('24504000');
 
@@ -51,8 +49,6 @@ describe('ng-currency-formatter directive', function () {
     });
 
     it('should maintain the model value as a number', function () {
-        var input = angular.element(element).find('input');
-
         input.val('35,400,340');
         input.triggerHandler('input');
 
