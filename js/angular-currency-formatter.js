@@ -24,7 +24,7 @@ angular.module('ngCurrencyFormatterApp', [])
             });
 
             element.on('blur', function (event) {
-                var formattedValue = $filter('currency')(element.val(), '', 0);
+                var formattedValue = toCurrency(element.val());
                 controller.$setViewValue(formattedValue);
                 controller.$render();
             });
@@ -32,9 +32,9 @@ angular.module('ngCurrencyFormatterApp', [])
             element.on('input', function (event) {
                 var value = String(toNumber(element.val()));
 
-                if (value.length > maxLength) {
+                if (!isNaN(value) && value.length > maxLength) {
                     var newValue = value.substring(0, maxLength);
-                    controller.$setViewValue($filter('currency')(newValue, '', 0));
+                    controller.$setViewValue(toCurrency(newValue));
                     controller.$render();
                 }
             });
@@ -45,6 +45,10 @@ angular.module('ngCurrencyFormatterApp', [])
 
             function toNumber(value) {
                 return Number(value.replace(/,/g, ''));
+            }
+
+            function toCurrency(value){
+                return $filter('currency')(value, '', 0);
             }
         }
 
