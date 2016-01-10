@@ -1,6 +1,6 @@
 angular.module('ngCurrencyFormatterApp', [])
     .controller('currencyController', ['$scope', function ($scope) {
-        $scope. value = 24400;
+        $scope.value = 24400;
     }])
     .directive('ngCurrencyFormatter', ['$filter', function ($filter) {
         return {
@@ -13,6 +13,8 @@ angular.module('ngCurrencyFormatterApp', [])
         };
 
         function link(scope, element, attrs, controller) {
+            var maxLength = attrs.maxLength;
+
             controller.$formatters.push(function (value) {
                 return $filter('currency')(value, '', 0);
             });
@@ -27,7 +29,17 @@ angular.module('ngCurrencyFormatterApp', [])
                 controller.$render();
             });
 
-            controller.$parsers.push(function(value){
+            element.on('input', function (event) {
+                var value = String(toNumber(element.val()));
+
+                if (value.length > maxLength) {
+                    var newValue = value.substring(0, maxLength);
+                    controller.$setViewValue($filter('currency')(newValue, '', 0));
+                    controller.$render();
+                }
+            });
+
+            controller.$parsers.push(function (value) {
                 return toNumber(value);
             });
 
