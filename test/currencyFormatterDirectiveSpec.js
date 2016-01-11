@@ -64,6 +64,7 @@ describe('ng-currency-formatter directive', function () {
     it('should allow a maximum of 7 digits only', function () {
         input.val('71,340,000');
         input.triggerHandler('input');
+        input.triggerHandler('blur');
 
         expect(input.val()).toEqual('7,134,000');
         expect(scope.currencyForm.currencyInput.$modelValue).toEqual(7134000);
@@ -80,6 +81,7 @@ describe('ng-currency-formatter directive', function () {
         var currentInput = angular.element(element).find('input');
         currentInput.val('133022390000');
         currentInput.triggerHandler('input');
+        currentInput.triggerHandler('blur');
 
         expect(currentInput.val()).toEqual('1,330,223,900');
         expect(scope.currencyForm.currencyInput.$modelValue).toEqual(1330223900);
