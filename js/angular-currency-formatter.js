@@ -47,7 +47,7 @@ angular.module('ngCurrencyFormatterApp', [])
 
             function onKeypress(event) {
                 if (element.val().length >= maxLength) {
-                    event.preventDefault();
+                    event.defaultPrevented = true;
                     event.stopPropagation();
                 }
             }
