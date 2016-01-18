@@ -11,11 +11,10 @@ angular.module('ngCurrencyFormatterApp', [])
 
         function link(scope, element, attrs, controller) {
             var maxLength = attrs.maxLength;
+            var decimalPlaces = isNaN(attrs.decimalPlaces) ? 0 : Number(attrs.decimalPlaces);
 
             controller.$formatters.push(function (value) {
-                var decimalPlaces = isNaN(attrs.decimalPlaces) ? 0 : Number(attrs.decimalPlaces);
-
-                return $filter('currency')(value, '', decimalPlaces);
+                return toCurrency(value);
             });
 
             controller.$parsers.push(function (value) {
@@ -59,7 +58,7 @@ angular.module('ngCurrencyFormatterApp', [])
             }
 
             function toCurrency(value) {
-                return $filter('currency')(value, '', 0);
+                return $filter('currency')(value, '', decimalPlaces);
             }
         }
 

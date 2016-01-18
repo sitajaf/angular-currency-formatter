@@ -115,5 +115,19 @@ describe('ng-currency-formatter directive', function () {
         expect(currentInput.val()).toEqual('2,439,000.4');
     });
 
+    it('should properly format the view value to the right dps upon blur', function(){
+        var html = '<form name="currencyForm" >' +
+            '<input name="currencyInput" ng-currency-formatter decimal-places="2" ng-model="currencyValue">' +
+            '</form>';
+        var currentElement = compile(html)(scope);
+        scope.$digest();
+        var currentInput = angular.element(currentElement).find('input');
+
+        currentInput.val('2340430');
+
+        currentInput.triggerHandler('blur');
+        expect(currentInput.val()).toEqual('2,340,430.00');
+    });
+
 
 });
