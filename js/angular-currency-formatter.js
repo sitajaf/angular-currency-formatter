@@ -13,7 +13,9 @@ angular.module('ngCurrencyFormatterApp', [])
             var maxLength = attrs.maxLength;
 
             controller.$formatters.push(function (value) {
-                return $filter('currency')(value, '', 0);
+                var decimalPlaces = isNaN(attrs.decimalPlaces) ? 0 : Number(attrs.decimalPlaces);
+
+                return $filter('currency')(value, '', decimalPlaces);
             });
 
             controller.$parsers.push(function (value) {
@@ -21,7 +23,7 @@ angular.module('ngCurrencyFormatterApp', [])
             });
 
             element.on('focus', onFocus);
-            element.on('keypress',onKeypress);
+            element.on('keypress', onKeypress);
             element.on('blur', onBlur);
             element.on('input', onInput);
 

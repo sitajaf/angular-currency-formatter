@@ -68,7 +68,7 @@ describe('ng-currency-formatter directive', function () {
 
         expect(input.val()).toEqual('7,134,000');
         expect(scope.currencyForm.currencyInput.$modelValue).toEqual(7134000);
-    })
+    });
 
     it('should allow a maximum of 10 digits only', function () {
         var html = '<form name="currencyForm" >' +
@@ -85,6 +85,34 @@ describe('ng-currency-formatter directive', function () {
 
         expect(currentInput.val()).toEqual('1,330,223,900');
         expect(scope.currencyForm.currencyInput.$modelValue).toEqual(1330223900);
+    });
+
+    it('should properly format view value with 2 zeros if 2 decimal values specified', function () {
+        var html = '<form name="currencyForm" >' +
+            '<input name="currencyInput" ng-currency-formatter decimal-places="2" ng-model="currencyValue">' +
+            '</form>';
+        var currentElement = compile(html)(scope);
+        scope.$digest();
+        var currentInput = angular.element(currentElement).find('input');
+
+        scope.currencyValue = 1278000;
+        scope.$digest();
+
+        expect(currentInput.val()).toEqual('1,278,000.00');
+    });
+
+    it('should properly format view value with decimal value to the correct dps specified', function () {
+        var html = '<form name="currencyForm" >' +
+            '<input name="currencyInput" ng-currency-formatter decimal-places="1" ng-model="currencyValue">' +
+            '</form>';
+
+        element = compile(html)(scope);
+        scope.$digest();
+        var currentInput = angular.element(element).find('input');
+        scope.currencyValue = 2439000.40;
+        scope.$digest();
+
+        expect(currentInput.val()).toEqual('2,439,000.4');
     });
 
 
