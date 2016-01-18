@@ -115,7 +115,7 @@ describe('ng-currency-formatter directive', function () {
         expect(currentInput.val()).toEqual('2,439,000.4');
     });
 
-    it('should properly format the view value to the right dps upon blur', function(){
+    it('should properly format the view value to the right dps upon blur if dps specified', function(){
         var html = '<form name="currencyForm" >' +
             '<input name="currencyInput" ng-currency-formatter decimal-places="2" ng-model="currencyValue">' +
             '</form>';
@@ -127,6 +127,27 @@ describe('ng-currency-formatter directive', function () {
 
         currentInput.triggerHandler('blur');
         expect(currentInput.val()).toEqual('2,340,430.00');
+    });
+
+    it('should properly format the view value to the right dps upon on focus if dps specified', function(){
+        var html = '<form name="currencyForm" >' +
+            '<input name="currencyInput" ng-currency-formatter decimal-places="2" ng-model="currencyValue">' +
+            '</form>';
+        var currentElement = compile(html)(scope);
+        scope.$digest();
+        var currentInput = angular.element(currentElement).find('input');
+
+        scope.currencyValue = 2439000.40;
+        scope.$digest();
+
+        currentInput.triggerHandler('focus');
+        expect(currentInput.val()).toEqual('2439000.4')
+
+        scope.currencyValue = 9653.78;
+        scope.$digest();
+
+        currentInput.triggerHandler('focus');
+        expect(currentInput.val()).toEqual('9653.78')
     });
 
 
