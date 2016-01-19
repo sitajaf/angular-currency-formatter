@@ -27,16 +27,19 @@ angular.module('ngCurrencyFormatterApp', [])
             element.on('input', onInput);
 
 
+
             function onBlur(event) {
                 controller.$setViewValue(toCurrency(element.val()));
                 controller.$render();
             }
 
             function onInput(event) {
-                var value = String(toNumber(element.val()));
+                var numberValue = String(Math.floor(toNumber(element.val())));
+                var decimalValue = element.val().substring(numberValue.length + 1);
 
-                if (value.length > maxLength) {
-                    var newValue = value.substring(0, maxLength);
+                if (decimalValue.length > decimalPlaces) {
+                    console.log('manipulating input in input')
+                    var newValue = numberValue + '.' + decimalValue.substring(0, 2);
                     controller.$setViewValue(newValue);
                     controller.$render();
                 }
@@ -47,10 +50,17 @@ angular.module('ngCurrencyFormatterApp', [])
             }
 
             function onKeypress(event) {
-                if (element.val().length >= maxLength) {
-                    event.defaultPrevented = true;
+                var charCode = event.which ? event.which : event.keyCode;
+                var includesDot = element.val().includes('.');
+
+                if ((charCode === 46 && includesDot === true) || charCode !== 44  && charCode !== 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+                    console.log('preventing default in key press');
+                    event.preventDefault();
                     event.stopPropagation();
+                    return false;
                 }
+                return true;
+
             }
 
             function toNumber(value) {
@@ -61,6 +71,7 @@ angular.module('ngCurrencyFormatterApp', [])
                 return $filter('currency')(value, '', decimalPlaces);
             }
         }
+
 
     }
     ]);
